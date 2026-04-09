@@ -35,8 +35,8 @@ public interface StudentRepository extends JpaRepository<Student,Integer>
 
     Student findByUsername(String username);
 
-    @Query("SELECT s FROM Student s WHERE s.username=?1")
-    Student getStudentByUsername(String username);
+//    @Query("SELECT s FROM Student s WHERE s.username=?1")
+//    Student getStudentByUsername(String username);
 
 
     @Modifying
@@ -44,14 +44,11 @@ public interface StudentRepository extends JpaRepository<Student,Integer>
     @Query("DELETE FROM Student s WHERE s.username=?1")
     int deleteStudentByUsername(String username);
 
-
-    // department instead of location
-
     List<Student> findByDepartment(String department);
 
-    @Query("SELECT s FROM Student s WHERE s.department=?1")
-    List<Student> getStudentsByDepartment(String department);
-   
+//    @Query("SELECT s FROM Student s WHERE s.department=?1")
+//    List<Student> getStudentsByDepartment(String department);
+
 
     List<Student> findByGender(String gender);
 

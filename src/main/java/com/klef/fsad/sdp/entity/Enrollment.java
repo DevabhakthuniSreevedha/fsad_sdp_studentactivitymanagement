@@ -15,7 +15,7 @@ public class Enrollment
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;  
+	private int id;  
 
 	@ManyToOne
 	@JoinColumn(name = "student_id")
@@ -31,11 +31,11 @@ public class Enrollment
 	@Column(nullable = false)
 	private String status;
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

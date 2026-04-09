@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.klef.fsad.sdp.entity.Activity;
@@ -25,6 +26,9 @@ public class StudentServiceImpl implements StudentService
 	 
 	 @Autowired
 	 private ActivityRepository activityRepository;
+
+     @Autowired
+     private PasswordEncoder passwordEncoder;
 	
 	@Override
 	public Student verifyStudentLogin(String email, String pwd) 
@@ -44,7 +48,13 @@ public class StudentServiceImpl implements StudentService
 			s.setContact(student.getContact());
 			s.setDepartment(student.getDepartment());
 			s.setName(student.getName());
-			s.setPassword(student.getPassword());
+
+            if(student.getPassword() != null
+                    && !student.getPassword().isEmpty()
+                    && !student.getPassword().equals("********"))
+            {
+                s.setPassword(passwordEncoder.encode(student.getPassword()));
+            }
 			
 			studentRepository.save(s);
 			
@@ -59,6 +69,7 @@ public class StudentServiceImpl implements StudentService
 	@Override
 	public String studentRegistration(Student student) 
 	{
+        student.setPassword(passwordEncoder.encode(student.getPassword()));
 		studentRepository.save(student);
 		return "Student Registered Successfully";
 	}
@@ -90,5 +101,4 @@ public class StudentServiceImpl implements StudentService
 
 		return null;
 	}
-
 }

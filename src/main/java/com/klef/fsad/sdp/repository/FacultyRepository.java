@@ -9,4 +9,5 @@ import com.klef.fsad.sdp.entity.Faculty;
 public interface FacultyRepository extends JpaRepository<Faculty,Integer>
 {
    Faculty findByEmailAndPassword(String email, String password);
+   Faculty findByEmail(String email);
 }

@@ -1,10 +1,14 @@
 package com.klef.fsad.sdp.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.klef.fsad.sdp.dto.FacultyDTO;
+import com.klef.fsad.sdp.dto.StudentDTO;
 import com.klef.fsad.sdp.entity.Admin;
 import com.klef.fsad.sdp.entity.Student;
 import com.klef.fsad.sdp.entity.Faculty;
@@ -29,6 +33,9 @@ public class AdminServiceImpl implements AdminService
 
 	@Autowired
 	private EnrollmentRepository enrollmentRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 	
 
 	@Override
@@ -40,20 +47,54 @@ public class AdminServiceImpl implements AdminService
 	@Override
 	public String addFaculty(Faculty faculty) 
 	{
+        faculty.setPassword(passwordEncoder.encode(faculty.getPassword()));
 		facultyRepository.save(faculty);
 		return "Faculty Added Successfully";
 	}
 
 	@Override
-	public List<Faculty> viewAllFaculty() 
+	public List<FacultyDTO> viewAllFaculty() 
 	{
-		return facultyRepository.findAll();
+		List<Faculty> list = facultyRepository.findAll();
+
+		List<FacultyDTO> dtoList = new ArrayList<>();
+
+		for(Faculty f : list)
+		{
+			FacultyDTO dto = new FacultyDTO();
+			dto.setId(f.getId());
+			dto.setName(f.getName());
+			dto.setEmail(f.getEmail());
+			dto.setContact(f.getContact());
+			dto.setDepartment(f.getDepartment());
+
+			dtoList.add(dto);
+		}
+
+		return dtoList;
 	}
 
 	@Override
-	public List<Student> viewAllStudents() 
+	public List<StudentDTO> viewAllStudents() 
 	{
-		return studentRepository.findAll();
+		List<Student> list = studentRepository.findAll();
+
+		List<StudentDTO> dtoList = new ArrayList<>();
+
+		for(Student s : list)
+		{
+			StudentDTO dto = new StudentDTO();
+			dto.setId(s.getId());
+			dto.setName(s.getName());
+			dto.setEmail(s.getEmail());
+			dto.setContact(s.getContact());
+			dto.setDepartment(s.getDepartment());
+			dto.setYear(s.getYear());
+
+			dtoList.add(dto);
+		}
+
+		return dtoList;
 	}
 
 	@Override

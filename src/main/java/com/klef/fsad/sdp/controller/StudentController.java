@@ -13,7 +13,7 @@ import com.klef.fsad.sdp.service.StudentService;
 
 @RestController
 @RequestMapping("studentapi")
-@CrossOrigin(origins="*")
+@CrossOrigin("*")
 public class StudentController 
 {
    @Autowired
@@ -30,18 +30,13 @@ public class StudentController
    {
        try
        {
-           String output =
-               studentService.studentRegistration(s);
+           String output = studentService.studentRegistration(s);
 
-           return ResponseEntity
-                   .status(201)
-                   .body(output);
+           return ResponseEntity.status(201).body(output);
        }
        catch(Exception e)
        {
-           return ResponseEntity
-                   .status(500)
-                   .body("Internal Server Error");
+           return ResponseEntity.status(500).body("Internal Server Error");
        }
    }
 
@@ -50,30 +45,20 @@ public class StudentController
    {
        try
        {
-           Student s =
-               studentService.verifyStudentLogin(
-                   student.getEmail(),
-                   student.getPassword()
-               );
+           Student s = studentService.verifyStudentLogin(student.getEmail(),student.getPassword());
 
            if(s != null)
            {
-               return ResponseEntity
-                       .status(200)
-                       .body(s);
+               return ResponseEntity.status(200).body(s);
            }
            else
            {
-               return ResponseEntity
-                       .status(401)
-                       .body("Login Invalid");
+               return ResponseEntity.status(401).body("Login Invalid");
            }
        }
        catch (Exception e) 
        {
-           return ResponseEntity
-                   .status(500)
-                   .body("Internal Server Error");
+           return ResponseEntity.status(500).body("Internal Server Error");
        }
    }
 
@@ -82,18 +67,13 @@ public class StudentController
    {
        try
        {
-           String output =
-               studentService.updateStudentProfile(s);
+           String output = studentService.updateStudentProfile(s);
 
-           return ResponseEntity
-                   .status(201)
-                   .body(output);
+           return ResponseEntity.status(201).body(output);
        }
        catch(Exception e)
        {
-           return ResponseEntity
-                   .status(500)
-                   .body("Internal Server Error");
+           return ResponseEntity.status(500).body("Internal Server Error");
        }
    }
 
@@ -102,27 +82,20 @@ public class StudentController
    {
        try
        {
-           List<Activity> activities =
-               studentService.viewAllActivities();
+           List<Activity> activities = studentService.viewAllActivities();
 
            if(activities == null || activities.isEmpty())
            {
-               return ResponseEntity
-                       .status(204)
-                       .body("No Activities Found");
+               return ResponseEntity.status(204).body("No Activities Found");
            }
            else
            {
-               return ResponseEntity
-                       .status(200)
-                       .body(activities);
+               return ResponseEntity.status(200).body(activities);
            }
        }
        catch(Exception e)
        {
-           return ResponseEntity
-                   .status(500)
-                   .body("Error Fetching Activities");
+           return ResponseEntity.status(500).body("Error Fetching Activities");
        }
    }
 
@@ -131,18 +104,13 @@ public class StudentController
    {
        try
        {
-           String output =
-               studentService.enrollActivity(enrollment);
+           String output = studentService.enrollActivity(enrollment);
 
-           return ResponseEntity
-                   .status(201)
-                   .body(output);
+           return ResponseEntity.status(201).body(output);
        }
        catch(Exception e)
        {
-           return ResponseEntity
-                   .status(500)
-                   .body("Error Enrolling Activity");
+           return ResponseEntity.status(500).body("Error Enrolling Activity");
        }
    }
 
@@ -151,27 +119,20 @@ public class StudentController
    {
        try
        {
-           List<Enrollment> enrollments =
-               studentService.viewEnrollmentsByStudent(studentid);
+           List<Enrollment> enrollments = studentService.viewEnrollmentsByStudent(studentid);
 
            if(enrollments == null || enrollments.isEmpty())
            {
-               return ResponseEntity
-                       .status(204)
-                       .body("No Enrollments Found");
+               return ResponseEntity.status(204).body("No Enrollments Found");
            }
            else
            {
-               return ResponseEntity
-                       .status(200)
-                       .body(enrollments);
+               return ResponseEntity.status(200).body(enrollments);
            }
        }
        catch(Exception e)
        {
-           return ResponseEntity
-                   .status(500)
-                   .body("Error Fetching Enrollments");
+           return ResponseEntity.status(500).body("Error Fetching Enrollments");
        }
    }
 }

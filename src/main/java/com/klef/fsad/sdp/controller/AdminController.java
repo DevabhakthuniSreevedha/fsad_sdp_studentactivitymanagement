@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.klef.fsad.sdp.dto.FacultyDTO;
+import com.klef.fsad.sdp.dto.StudentDTO;
 import com.klef.fsad.sdp.entity.Admin;
-import com.klef.fsad.sdp.entity.Student;
 import com.klef.fsad.sdp.entity.Faculty;
 import com.klef.fsad.sdp.service.AdminService;
 
@@ -50,15 +51,15 @@ public class AdminController
 	@PostMapping("/addfaculty")
 	public ResponseEntity<String> addFaculty(@RequestBody Faculty faculty)
 	{
-		   try
-		   {
-			   String output = adminService.addFaculty(faculty);
-			   return ResponseEntity.status(201).body(output);
-		   }
-		   catch(Exception e)
-		   {
-			   return ResponseEntity.status(500).body("Internal Server Error");
-		   }
+		try
+		{
+			String output = adminService.addFaculty(faculty);
+			return ResponseEntity.status(201).body(output);
+		}
+		catch(Exception e)
+		{
+			return ResponseEntity.status(500).body("Internal Server Error");
+		}
 	}
 	
 	@GetMapping("/viewallfaculty")
@@ -66,7 +67,7 @@ public class AdminController
 	{
 	    try
 	    {
-	        List<Faculty> faculty = adminService.viewAllFaculty();
+	        List<FacultyDTO> faculty = adminService.viewAllFaculty();
 	        return ResponseEntity.ok(faculty);
 	    }
 	    catch(Exception e)
@@ -74,7 +75,6 @@ public class AdminController
 	        return ResponseEntity.status(500).body("Error Fetching Faculty");
 	    }
 	}
-	
 	
 	@DeleteMapping("/deletefaculty/{id}")
 	public ResponseEntity<String> deleteFaculty(@PathVariable int id)
@@ -103,7 +103,7 @@ public class AdminController
 	{
 	    try
 	    {
-	        List<Student> students = adminService.viewAllStudents();
+	        List<StudentDTO> students = adminService.viewAllStudents();
 	        return ResponseEntity.ok(students);
 	    }
 	    catch(Exception e)
@@ -133,5 +133,4 @@ public class AdminController
 	        return ResponseEntity.status(500).body("Internal Server Error");
 	    }
 	}
-	
 }
