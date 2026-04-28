@@ -73,7 +73,7 @@ public class DemoController
 
             helper.setTo(mailDTO.getReceiveremail());
             helper.setSubject(mailDTO.getSubject());
-            helper.setFrom("msaikeerthi99@gmail.com");
+            helper.setFrom("vedhachowdary7872@gmail.com");
 
             String htmlContent =
                     "<html>" +
